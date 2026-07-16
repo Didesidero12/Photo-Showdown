@@ -65,11 +65,13 @@ export async function POST(request: Request) {
     }
 
     // claimData is JSONB returning { ok: boolean, error?: string, message?: string }
-    if (!claimData.ok) {
-      return NextResponse.json({ ok: false, error: claimData.error }, { status: 400 });
+    const result = claimData as { ok: boolean; error?: string; message?: string } | null;
+    
+    if (!result || !result.ok) {
+      return NextResponse.json({ ok: false, error: result?.error || "claim_failed" }, { status: 400 });
     }
 
-    return NextResponse.json({ ok: true, message: claimData.message });
+    return NextResponse.json({ ok: true, message: result.message });
   } catch (err) {
     console.error("Recovery API Error:", err);
     return NextResponse.json({ ok: false, error: "internal_error" }, { status: 500 });

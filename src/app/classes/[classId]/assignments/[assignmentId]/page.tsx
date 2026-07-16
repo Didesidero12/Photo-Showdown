@@ -202,8 +202,8 @@ export default async function AssignmentDetailPage({
                     <div className={styles.submissionBadges}>
                       {s.processing_status === "failed" ? (
                         <span className={`${styles.badge} ${styles.proc_failed}`}>Processing Failed</span>
-                      ) : s.processing_status === "ready" && s.status === "pending_review" ? (
-                        <span className={`${styles.badge} ${styles.sub_pending_review}`}>Awaiting Review</span>
+                      ) : s.processing_status === "ready" && s.status === "pending" ? (
+                        <span className={`${styles.badge} ${styles.sub_pending}`}>Awaiting Review</span>
                       ) : (
                         <span className={`${styles.badge} ${styles[`sub_${s.status}`]}`}>
                           {submissionStatusLabel[s.status] ?? s.status}

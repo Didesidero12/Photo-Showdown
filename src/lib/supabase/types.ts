@@ -199,6 +199,134 @@ export type Database = {
           },
         ]
       }
+      critiques: {
+        Row: {
+          created_at: string
+          effect: string
+          hidden_at: string | null
+          hidden_by: string | null
+          hidden_reason: string | null
+          id: string
+          is_hidden: boolean | null
+          lens_type: string
+          matchup_id: string
+          notice: string
+          selected_submission_id: string
+          structured_response: Json | null
+          unhidden_at: string | null
+          unhidden_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          effect: string
+          hidden_at?: string | null
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          id?: string
+          is_hidden?: boolean | null
+          lens_type: string
+          matchup_id: string
+          notice: string
+          selected_submission_id: string
+          structured_response?: Json | null
+          unhidden_at?: string | null
+          unhidden_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          effect?: string
+          hidden_at?: string | null
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          id?: string
+          is_hidden?: boolean | null
+          lens_type?: string
+          matchup_id?: string
+          notice?: string
+          selected_submission_id?: string
+          structured_response?: Json | null
+          unhidden_at?: string | null
+          unhidden_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "critiques_matchup_id_fkey"
+            columns: ["matchup_id"]
+            isOneToOne: true
+            referencedRelation: "matchups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "critiques_selected_submission_id_fkey"
+            columns: ["selected_submission_id"]
+            isOneToOne: false
+            referencedRelation: "submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      matchups: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          critic_membership_id: string
+          id: string
+          sequence_number: number
+          session_id: string
+          submission_a_id: string
+          submission_b_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          critic_membership_id: string
+          id?: string
+          sequence_number?: number
+          session_id: string
+          submission_a_id: string
+          submission_b_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          critic_membership_id?: string
+          id?: string
+          sequence_number?: number
+          session_id?: string
+          submission_a_id?: string
+          submission_b_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matchups_critic_membership_id_fkey"
+            columns: ["critic_membership_id"]
+            isOneToOne: false
+            referencedRelation: "class_memberships"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchups_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "showdown_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchups_submission_a_id_fkey"
+            columns: ["submission_a_id"]
+            isOneToOne: false
+            referencedRelation: "submissions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchups_submission_b_id_fkey"
+            columns: ["submission_b_id"]
+            isOneToOne: false
+            referencedRelation: "submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organization_memberships: {
         Row: {
           created_at: string
@@ -294,10 +422,28 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limits: {
+        Row: {
+          count: number
+          key: string
+          reset_at: string
+        }
+        Insert: {
+          count?: number
+          key: string
+          reset_at: string
+        }
+        Update: {
+          count?: number
+          key?: string
+          reset_at?: string
+        }
+        Relationships: []
+      }
       recovery_codes: {
         Row: {
           class_membership_id: string
-          code: string
+          code_hash: string
           created_at: string
           created_by: string
           expires_at: string
@@ -306,7 +452,7 @@ export type Database = {
         }
         Insert: {
           class_membership_id: string
-          code: string
+          code_hash: string
           created_at?: string
           created_by: string
           expires_at: string
@@ -315,7 +461,7 @@ export type Database = {
         }
         Update: {
           class_membership_id?: string
-          code?: string
+          code_hash?: string
           created_at?: string
           created_by?: string
           expires_at?: string
@@ -333,6 +479,163 @@ export type Database = {
           {
             foreignKeyName: "recovery_codes_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      session_participations: {
+        Row: {
+          class_membership_id: string
+          created_at: string
+          critiques_required: number
+          id: string
+          override_active: boolean
+          override_actor_id: string | null
+          override_reason: string | null
+          override_timestamp: string | null
+          session_id: string
+        }
+        Insert: {
+          class_membership_id: string
+          created_at?: string
+          critiques_required?: number
+          id?: string
+          override_active?: boolean
+          override_actor_id?: string | null
+          override_reason?: string | null
+          override_timestamp?: string | null
+          session_id: string
+        }
+        Update: {
+          class_membership_id?: string
+          created_at?: string
+          critiques_required?: number
+          id?: string
+          override_active?: boolean
+          override_actor_id?: string | null
+          override_reason?: string | null
+          override_timestamp?: string | null
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_participations_class_membership_id_fkey"
+            columns: ["class_membership_id"]
+            isOneToOne: false
+            referencedRelation: "class_memberships"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_participations_override_actor_id_fkey"
+            columns: ["override_actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_participations_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "showdown_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      session_submissions: {
+        Row: {
+          added_at: string
+          session_id: string
+          submission_id: string
+        }
+        Insert: {
+          added_at?: string
+          session_id: string
+          submission_id: string
+        }
+        Update: {
+          added_at?: string
+          session_id?: string
+          submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_submissions_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "showdown_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_submissions_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      showdown_sessions: {
+        Row: {
+          assignment_id: string
+          closed_at: string | null
+          created_at: string
+          id: string
+          lens_type: string
+          pilot_analytics: Json | null
+          reveal_critic_identity: boolean
+          reveal_intent: boolean
+          reveal_peer_critiques: boolean
+          reveal_photographer_identity: boolean
+          reveal_votes: boolean
+          started_at: string | null
+          status: Database["public"]["Enums"]["showdown_session_status"]
+          teacher_id: string
+        }
+        Insert: {
+          assignment_id: string
+          closed_at?: string | null
+          created_at?: string
+          id?: string
+          lens_type?: string
+          pilot_analytics?: Json | null
+          reveal_critic_identity?: boolean
+          reveal_intent?: boolean
+          reveal_peer_critiques?: boolean
+          reveal_photographer_identity?: boolean
+          reveal_votes?: boolean
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["showdown_session_status"]
+          teacher_id: string
+        }
+        Update: {
+          assignment_id?: string
+          closed_at?: string | null
+          created_at?: string
+          id?: string
+          lens_type?: string
+          pilot_analytics?: Json | null
+          reveal_critic_identity?: boolean
+          reveal_intent?: boolean
+          reveal_peer_critiques?: boolean
+          reveal_photographer_identity?: boolean
+          reveal_votes?: boolean
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["showdown_session_status"]
+          teacher_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "showdown_sessions_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "showdown_sessions_teacher_id_fkey"
+            columns: ["teacher_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -443,10 +746,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      claim_recovery_code: { Args: { provided_code: string }; Returns: boolean }
+      assign_matchup_rpc: {
+        Args: { p_critic_membership_id: string; p_session_id: string }
+        Returns: string
+      }
+      claim_recovery_code: {
+        Args: { provided_code_hash: string }
+        Returns: Json
+      }
       generate_class_code: { Args: never; Returns: string }
       generate_recovery_code: { Args: never; Returns: string }
       generate_share_token: { Args: never; Returns: string }
+      increment_rate_limit: {
+        Args: { p_key: string; p_window_interval: string }
+        Returns: number
+      }
+      increment_session_coaching_trigger: {
+        Args: { p_session_id: string; p_trigger_type: string }
+        Returns: undefined
+      }
       initiate_submission: {
         Args: { p_assignment_id: string; p_creative_intent: string }
         Returns: {
@@ -454,6 +772,10 @@ export type Database = {
           raw_path: string
           submission_id: string
         }[]
+      }
+      toggle_critique_hidden: {
+        Args: { p_critique_id: string; p_is_hidden: boolean; p_reason?: string }
+        Returns: undefined
       }
     }
     Enums: {
@@ -472,6 +794,7 @@ export type Database = {
       org_member_role: "owner" | "teacher"
       org_member_status: "active" | "suspended" | "removed"
       processing_status: "pending" | "processing" | "ready" | "failed"
+      showdown_session_status: "preparing" | "active" | "reveal" | "closed"
       submission_status: "pending" | "approved" | "returned" | "rejected"
     }
     CompositeTypes: {
@@ -1164,6 +1487,7 @@ export const Constants = {
       org_member_role: ["owner", "teacher"],
       org_member_status: ["active", "suspended", "removed"],
       processing_status: ["pending", "processing", "ready", "failed"],
+      showdown_session_status: ["preparing", "active", "reveal", "closed"],
       submission_status: ["pending", "approved", "returned", "rejected"],
     },
   },

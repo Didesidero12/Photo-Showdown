@@ -79,7 +79,7 @@ export async function generateMatchup(sessionId: string, classId: string) {
   return { data: newMatchup };
 }
 
-export function validateServerCritique(notice: string, effect: string): string | null {
+export async function validateServerCritique(notice: string, effect: string): Promise<string | null> {
   const nText = notice.trim();
   const eText = effect.trim();
 
@@ -136,7 +136,7 @@ export async function submitCritique(matchupId: string, selectedSubmissionId: st
   if (!membership) return { error: "unauthorized" };
 
   // Server-side Quality Validation
-  const validationError = validateServerCritique(notice, effect);
+  const validationError = await validateServerCritique(notice, effect);
   if (validationError) {
     await supabase.rpc("increment_session_coaching_trigger", { p_session_id: matchup.session_id, p_trigger_type: validationError });
     return { error: validationError };

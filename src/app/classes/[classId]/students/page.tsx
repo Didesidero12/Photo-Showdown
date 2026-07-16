@@ -54,7 +54,7 @@ export default async function ClassStudentsPage({
       id,
       display_name,
       status,
-      created_at
+      joined_at
     `)
     .eq("class_id", classId)
     .order("display_name", { ascending: true });
@@ -105,7 +105,7 @@ export default async function ClassStudentsPage({
                       </span>
                     </td>
                     <td>
-                      {new Date(mem.created_at).toLocaleDateString("en-US", {
+                      {new Date(mem.joined_at).toLocaleDateString("en-US", {
                         month: "short", day: "numeric", year: "numeric"
                       })}
                     </td>

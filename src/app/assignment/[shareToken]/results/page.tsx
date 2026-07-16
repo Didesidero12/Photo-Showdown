@@ -25,7 +25,7 @@ export default async function ResultsPage(props: { params: Promise<{ shareToken:
 
   const { data: session } = await admin
     .from("showdown_sessions")
-    .select("id, status")
+    .select("id, status, reveal_votes, reveal_intent, reveal_peer_critiques, reveal_critic_identity, reveal_photographer_identity")
     .eq("assignment_id", assignment.id)
     .in("status", ["reveal", "closed"])
     .order("created_at", { ascending: false })
@@ -106,7 +106,7 @@ export default async function ResultsPage(props: { params: Promise<{ shareToken:
     `)
     .eq("session_id", session.id)
     .not("completed_at", "is", null)
-    .or(`submission_a_id.eq.${mySubmission.id},submission_b_id.eq.${mySubmission.id}`);
+    .or(`submission_a_id.eq.${submission?.id || '00000000-0000-0000-0000-000000000000'},submission_b_id.eq.${submission?.id || '00000000-0000-0000-0000-000000000000'}`);
 
   // Also fetch the session's reveal settings
   const revealSettings = {
@@ -117,10 +117,13 @@ export default async function ResultsPage(props: { params: Promise<{ shareToken:
     photographerIdentity: session.reveal_photographer_identity || false
   };
 
-  // Get image URL
-  const { data: imgData } = mySubmission 
-    ? await admin.storage.from("submissions-processed").createSignedUrl(mySubmission.storage_path_processed, 3600)
-    : { data: null };
+  let signedUrl = "";
+  if (submission?.storage_path_processed) {
+    const { data: urlData } = await admin.storage
+      .from("submissions-processed")
+      .createSignedUrl(submission.storage_path_processed, 3600);
+    signedUrl = urlData?.signedUrl || "";
+  }
 
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem", color: "var(--text-color)" }}>
@@ -133,13 +136,13 @@ export default async function ResultsPage(props: { params: Promise<{ shareToken:
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "2rem" }}>
         <div>
-          {imgData?.signedUrl && (
-            <img src={imgData.signedUrl} alt="Your Submission" style={{ width: "100%", borderRadius: "8px" }} />
+          {signedUrl && (
+            <img src={signedUrl} alt="Your Submission" style={{ width: "100%", borderRadius: "8px" }} />
           )}
           {revealSettings.intent && (
             <div style={{ marginTop: "1rem", padding: "1rem", background: "var(--background-alt)", borderRadius: "8px" }}>
               <h3>Your Creative Intent</h3>
-              <p>"{mySubmission?.creative_intent}"</p>
+              <p>"{submission?.creative_intent}"</p>
             </div>
           )}
         </div>
@@ -149,11 +152,13 @@ export default async function ResultsPage(props: { params: Promise<{ shareToken:
           <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
             {matchups && matchups.length > 0 ? (
               matchups.map(m => {
-                const won = m.critiques?.[0]?.selected_submission_id === mySubmission.id;
-                const isHidden = m.critiques?.[0]?.is_hidden;
-                const noticeText = m.critiques?.[0]?.notice || "No text provided";
-                const effectText = m.critiques?.[0]?.effect || "No text provided";
-                const lens = m.critiques?.[0]?.lens_type || "lighting";
+                // Supabase types might infer critiques as an array or object depending on schema relations
+                const critiqueObj = Array.isArray(m.critiques) ? m.critiques[0] : m.critiques;
+                const won = critiqueObj?.selected_submission_id === submission?.id;
+                const isHidden = critiqueObj?.is_hidden;
+                const noticeText = critiqueObj?.notice || "No text provided";
+                const effectText = critiqueObj?.effect || "No text provided";
+                const lens = critiqueObj?.lens_type || "lighting";
 
                 return (
                   <div key={m.id} style={{ padding: "1.5rem", border: "1px solid var(--border-color)", borderRadius: "8px" }}>

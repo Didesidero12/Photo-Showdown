@@ -1,11 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function SignOutButton() {
   const router = useRouter();
-  const supabase = createSupabaseBrowserClient();
+  const supabase = getSupabaseBrowserClient();
 
   const handleSignOut = async () => {
     if (confirm("Warning: Since you don't use a password, you will need a Recovery Code from your teacher to access this work again on this device. Are you sure you want to sign out?")) {

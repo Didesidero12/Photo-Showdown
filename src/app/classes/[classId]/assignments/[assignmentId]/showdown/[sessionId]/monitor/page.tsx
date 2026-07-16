@@ -126,9 +126,10 @@ export default async function MonitorPage(props: { params: Promise<{ classId: st
           <div style={{ padding: "1.5rem", background: "var(--background-alt)", borderRadius: "8px" }}>
             <h2>Pilot Analytics</h2>
             <div style={{ marginTop: "1rem" }}>
-              <p><strong>Missing Effect Triggers:</strong> {session.pilot_analytics?.coaching_triggers?.missing_effect || 0}</p>
-              <p><strong>Too Short Triggers:</strong> {session.pilot_analytics?.coaching_triggers?.too_short || 0}</p>
-              <p><strong>Generic Praise Triggers:</strong> {session.pilot_analytics?.coaching_triggers?.generic_praise || 0}</p>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}><strong>Missing Effect Triggers:</strong> {(session.pilot_analytics as any)?.coaching_triggers?.missing_effect || 0}</p>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}><strong>Too Short Triggers:</strong> {(session.pilot_analytics as any)?.coaching_triggers?.too_short || 0}</p>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}><strong>Generic Praise Triggers:</strong> {(session.pilot_analytics as any)?.coaching_triggers?.generic_praise || 0}</p>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}><strong>Repeated Response Triggers:</strong> {(session.pilot_analytics as any)?.coaching_triggers?.repeated_response || 0}</p>
             </div>
           </div>
         </section>

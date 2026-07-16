@@ -2,11 +2,11 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function SwitchStudentButton({ className }: { className?: string }) {
   const router = useRouter();
-  const supabase = createSupabaseBrowserClient();
+  const supabase = getSupabaseBrowserClient();
   const [isPending, startTransition] = useTransition();
 
   const handleSwitch = () => {

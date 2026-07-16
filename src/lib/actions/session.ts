@@ -161,7 +161,7 @@ export async function toggleCritiqueHidden(critiqueId: string, isHidden: boolean
   const { error } = await supabase.rpc("toggle_critique_hidden", {
     p_critique_id: critiqueId,
     p_is_hidden: isHidden,
-    p_reason: reason || null
+    p_reason: reason || undefined
   });
 
   if (error) {

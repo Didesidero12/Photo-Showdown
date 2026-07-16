@@ -52,6 +52,8 @@ export default async function StudentHome() {
     .neq("status", "archived")
     .order("submission_deadline", { ascending: true });
 
+  const membershipIds = memberships.map(m => m.id);
+
   // Fetch all submissions for this student
   const { data: submissions } = await supabase
     .from("submissions")
@@ -61,10 +63,10 @@ export default async function StudentHome() {
       status,
       creative_intent,
       teacher_note,
-      processed_url,
+      storage_path_processed,
       created_at
     `)
-    .eq("student_id", user.id)
+    .in("class_membership_id", membershipIds)
     .order("created_at", { ascending: false });
 
   // Map submissions by assignment
@@ -159,9 +161,9 @@ export default async function StudentHome() {
                 const cls = memberships.find(m => m.classes.id === a?.class_id)?.classes;
                 return (
                   <div key={sub.id} className={styles.workCard}>
-                    {sub.processed_url ? (
+                    {sub.storage_path_processed ? (
                       <div className={styles.imageWrapper}>
-                        <img src={sub.processed_url} alt="Submission" className={styles.workImage} />
+                        <img src={sub.storage_path_processed} alt="Submission" className={styles.workImg} />
                       </div>
                     ) : (
                       <div className={styles.placeholderImage}>Processing...</div>

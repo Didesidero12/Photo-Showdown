@@ -58,12 +58,31 @@ export default async function CritiquePage(props: { params: Promise<{ shareToken
 
   const matchup = result.data;
   
+  if (!matchup) {
+    return (
+      <div style={{ padding: "2rem", color: "var(--text-color)" }}>
+        <h1>Unable to load matchup</h1>
+        <p>Error: No matchup data returned.</p>
+        <a href={`/my`} style={{ color: "var(--primary-color)" }}>Return Home</a>
+      </div>
+    );
+  }
   // We need to fetch the actual image paths for the matchup since generateMatchup only returns IDs
   // We must use the admin client since students can't SELECT submissions directly without active_critique constraints.
   // Actually, students might be able to select them if the RLS allows, but it's safer to fetch them server-side here.
   
   const { data: submissionA } = await admin.from("submissions").select("id, storage_path_processed, creative_intent").eq("id", matchup.submission_a_id).single();
   const { data: submissionB } = await admin.from("submissions").select("id, storage_path_processed, creative_intent").eq("id", matchup.submission_b_id).single();
+
+  if (!submissionA || !submissionB || !submissionA.storage_path_processed || !submissionB.storage_path_processed) {
+    return (
+      <div style={{ padding: "2rem", color: "var(--text-color)" }}>
+        <h1>Unable to load matchup</h1>
+        <p>Error: Submissions not found or not processed.</p>
+        <a href={`/my`} style={{ color: "var(--primary-color)" }}>Return Home</a>
+      </div>
+    );
+  }
 
   // Sign the URLs so the client can display them
   // The storage_path_processed is just a relative path, we need public URLs or signed URLs.
