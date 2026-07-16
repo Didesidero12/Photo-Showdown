@@ -1,0 +1,214 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(192, 57, 43, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(200, 150, 42, 0.05) 0%, transparent 50%),
+    var(--color-void);
+}
+
+.filmBurn {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at top, rgba(192, 57, 43, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(200, 150, 42, 0.04) 0%, transparent 50%);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.logoShot {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-text-primary);
+  letter-spacing: 0.08em;
+}
+
+.logoDivider {
+  color: var(--color-red);
+  font-size: 1.25rem;
+}
+
+.logoShowdown {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-red);
+  letter-spacing: 0.08em;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-8);
+}
+
+/* Mode toggle */
+.modeToggle {
+  display: flex;
+  background: var(--color-surface-0);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  margin-bottom: var(--space-6);
+}
+
+.modeToggle button {
+  flex: 1;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: calc(var(--radius-md) - 2px);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.modeToggle button:hover {
+  color: var(--color-text-primary);
+}
+
+.activeTab {
+  background: var(--color-surface-2) !important;
+  color: var(--color-text-primary) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: calc(var(--space-1) * -1);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-0);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.input::placeholder { color: var(--color-text-tertiary); }
+
+.input:focus {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px var(--color-red-glow);
+}
+
+.primaryButton {
+  width: 100%;
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background var(--transition-fast), box-shadow var(--transition-base);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--color-red-bright);
+  box-shadow: var(--shadow-red);
+}
+
+.primaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Sent state */
+.sentState {
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.sentIcon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-4);
+}
+
+.sentState h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-2);
+}
+
+.sentState p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Error */
+.error {
+  color: var(--color-red-bright);
+  font-size: 0.8rem;
+  padding: var(--space-2) var(--space-3);
+  background: rgba(192, 57, 43, 0.1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-red);
+}
+
+/* Footer */
+.footer {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-tertiary);
+}
+
+.footer a {
+  color: var(--color-red);
+  font-weight: 500;
+}

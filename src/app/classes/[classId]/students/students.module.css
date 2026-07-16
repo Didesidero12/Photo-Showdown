@@ -1,0 +1,109 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem 3rem;
+  background-color: var(--surface-bg, #f9fafb);
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #6b7280);
+  margin-bottom: 2rem;
+}
+
+.breadcrumb a {
+  color: var(--text-primary, #111827);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #111827);
+  margin: 0;
+}
+
+.rosterSection {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  overflow: hidden;
+}
+
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary, #6b7280);
+}
+
+.studentTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.studentTable th {
+  padding: 1rem 1.5rem;
+  background-color: #f8fafc;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #475569);
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.studentTable td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  vertical-align: middle;
+}
+
+.studentTable tr:last-child td {
+  border-bottom: none;
+}
+
+.inactiveRow {
+  opacity: 0.6;
+}
+
+.nameCell {
+  font-weight: 500;
+  color: var(--text-primary, #0f172a);
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.badge-active {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-suspended {
+  background-color: #fef08a;
+  color: #854d0e;
+}
+
+.badge-removed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}

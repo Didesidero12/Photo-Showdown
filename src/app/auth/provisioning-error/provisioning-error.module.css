@@ -1,0 +1,169 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(192, 57, 43, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(200, 150, 42, 0.05) 0%, transparent 50%),
+    var(--color-void);
+}
+
+.filmBurn {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at top, rgba(192, 57, 43, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(200, 150, 42, 0.04) 0%, transparent 50%);
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.logoShot {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--color-text-primary);
+  letter-spacing: 0.08em;
+}
+
+.logoDivider {
+  color: var(--color-red);
+  font-size: 1rem;
+}
+
+.logoShowdown {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--color-red);
+  letter-spacing: 0.08em;
+}
+
+/* Icon */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-6);
+  border-radius: 50%;
+  background: rgba(192, 57, 43, 0.12);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+}
+
+.icon {
+  font-size: 2rem;
+  color: var(--color-red);
+}
+
+/* Text */
+.heading {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.02em;
+}
+
+.detail {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+}
+
+.codeLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-8);
+}
+
+.code {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background: var(--color-surface-0);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-red-bright);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.primaryButton {
+  display: block;
+  width: 100%;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), box-shadow var(--transition-base);
+}
+
+.primaryButton:hover {
+  background: var(--color-red-bright);
+  box-shadow: var(--shadow-red);
+}
+
+.secondaryButton {
+  display: block;
+  width: 100%;
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.secondaryButton:hover {
+  border-color: var(--color-border-bright);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,124 @@
+.page {
+  min-height: 100dvh; display: flex; align-items: flex-start;
+  justify-content: center; background: var(--color-void); padding: var(--space-8) var(--space-6);
+}
+
+.card {
+  width: 100%; max-width: 540px; padding: var(--space-10);
+  background: var(--color-surface-1); border: 1px solid var(--color-border-bright);
+  border-radius: var(--radius-2xl); display: flex; flex-direction: column; gap: var(--space-5);
+}
+
+.badge {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-red-bright); padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-red); border-radius: var(--radius-full);
+  width: fit-content; background: var(--color-red-dim);
+}
+
+.title {
+  font-family: var(--font-display); font-size: 1.75rem;
+  color: var(--color-text-primary); letter-spacing: 0.03em;
+}
+
+.noSub {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+  padding: var(--space-6); color: var(--color-text-tertiary); text-align: center;
+}
+
+.submitLink {
+  color: var(--color-red-bright); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+}
+
+.submitLink:hover { text-decoration: underline; }
+
+.status { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.processingBanner {
+  padding: var(--space-3) var(--space-4); background: rgba(200,150,42,0.08);
+  border: 1px solid var(--color-gold); border-radius: var(--radius-md);
+  color: var(--color-gold-bright); font-size: 0.875rem;
+}
+
+.processingBanner.failed {
+  background: rgba(220,60,60,0.08); border-color: var(--color-red);
+  color: var(--color-red-bright);
+}
+
+.photo {
+  width: 100%; border-radius: var(--radius-xl); border: 1px solid var(--color-border);
+  object-fit: contain; max-height: 400px; background: var(--color-void);
+}
+
+.statusChip {
+  width: fit-content; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full); border: 1px solid;
+}
+
+.gold { color: var(--color-gold-bright); border-color: var(--color-gold); background: rgba(200,150,42,0.1); }
+.green { color: #4dd; border-color: #4dd4; background: rgba(40,200,120,0.1); }
+.orange { color: #fa8; border-color: #fa84; background: rgba(255,160,80,0.1); }
+.red { color: var(--color-red-bright); border-color: var(--color-red); background: rgba(220,60,60,0.1); }
+
+.statusDesc { font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.5; }
+
+.submittedAt { font-size: 0.78rem; color: var(--color-text-tertiary); }
+
+.intentBox {
+  padding: var(--space-4); background: var(--color-void);
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+}
+
+.intentLabel {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-tertiary); margin-bottom: var(--space-2);
+}
+
+.intentText {
+  margin: 0; font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;
+  border-left: 3px solid var(--color-border-bright); padding-left: var(--space-3);
+  white-space: pre-wrap;
+}
+
+.noteBox {
+  padding: var(--space-4); background: rgba(255,160,80,0.06);
+  border: 1px solid #fa8; border-radius: var(--radius-lg);
+}
+
+.noteLabel {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fa8; margin-bottom: var(--space-2);
+}
+
+.noteText { font-size: 0.9rem; color: var(--color-text-secondary); white-space: pre-wrap; line-height: 1.6; }
+
+.resubmitLink {
+  display: inline-block; padding: var(--space-3) var(--space-5);
+  background: rgba(255,160,80,0.1); border: 1px solid #fa8; border-radius: var(--radius-md);
+  color: #fa8; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  transition: all var(--transition-fast); text-align: center;
+}
+
+.resubmitLink:hover { background: rgba(255,160,80,0.2); }
+
+.centered {
+  min-height: 100dvh; display: flex; align-items: center; justify-content: center;
+  background: var(--color-void);
+}
+
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--color-border-bright);
+  border-top-color: var(--color-red-bright); border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.errorCard {
+  max-width: 420px; padding: var(--space-8); background: var(--color-surface-1);
+  border: 1px solid var(--color-border-bright); border-radius: var(--radius-xl);
+  text-align: center; display: flex; flex-direction: column; gap: var(--space-4);
+}
+
+.errorTitle { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-red-bright); }
